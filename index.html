@@ -1084,7 +1084,403 @@
     }
   </style>
 
+
+  <style id="android-iphone-responsive-final">
+    /*
+      Ajuste final mobile Android/iPhone.
+      Mantiene el diseño desktop intacto y corrige la experiencia en pantallas chicas.
+    */
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    body {
+      overscroll-behavior-y: contain;
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+
+      .choice span:hover,
+      button:hover {
+        transform: none !important;
+        filter: none !important;
+      }
+    }
+
+    @media (max-width: 860px) {
+      body {
+        overflow-x: hidden !important;
+      }
+
+      .shell {
+        width: 100% !important;
+        min-height: auto !important;
+        padding:
+          max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)) !important;
+        gap: 8px !important;
+      }
+
+      .topbar {
+        width: 100% !important;
+        min-height: 38px !important;
+        padding: 8px 10px !important;
+        border-radius: 16px !important;
+      }
+
+      .brand {
+        font-size: clamp(.72rem, 3.2vw, .9rem) !important;
+        letter-spacing: .09em !important;
+        gap: 8px !important;
+      }
+
+      .top-date {
+        display: none !important;
+      }
+
+      .layout {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+        align-items: start !important;
+      }
+
+      .side {
+        display: grid !important;
+        grid-template-rows: auto auto !important;
+        gap: 8px !important;
+      }
+
+      .card {
+        border-radius: 20px !important;
+      }
+
+      .hero-card {
+        min-height: auto !important;
+        max-height: none !important;
+        padding: clamp(14px, 4vw, 18px) !important;
+        align-content: start !important;
+        overflow: hidden !important;
+      }
+
+      .hero-card::before {
+        background:
+          linear-gradient(90deg, rgba(0, 0, 0, .82) 0%, rgba(0, 0, 0, .58) 54%, rgba(0, 0, 0, .66) 100%),
+          linear-gradient(180deg, rgba(0, 0, 0, .16) 0%, rgba(0, 0, 0, .38) 48%, rgba(0, 0, 0, .9) 100%) !important;
+      }
+
+      .scene svg {
+        transform: scale(1.06) translateX(-2%) !important;
+        transform-origin: center center !important;
+      }
+
+      .date-stamp {
+        display: none !important;
+      }
+
+      .hero-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-right: 0 !important;
+      }
+
+      .eyebrow {
+        margin-bottom: 10px !important;
+        padding: 6px 10px !important;
+        font-size: clamp(.68rem, 3vw, .82rem) !important;
+        letter-spacing: .12em !important;
+      }
+
+      h1 {
+        max-width: 100% !important;
+        line-height: .86 !important;
+      }
+
+      .mi {
+        font-size: clamp(2.8rem, 17vw, 4.5rem) !important;
+        line-height: .82 !important;
+      }
+
+      .cumple {
+        font-size: clamp(3rem, 18vw, 5.15rem) !important;
+        line-height: .82 !important;
+        white-space: normal !important;
+        overflow-wrap: normal !important;
+        word-break: normal !important;
+        transform: rotate(-2deg) translateX(-2px) !important;
+        max-width: 100% !important;
+      }
+
+      .title-swipe {
+        width: min(94%, 420px) !important;
+        height: 7px !important;
+        margin-top: 5px !important;
+      }
+
+      .subtitle {
+        margin-top: 12px !important;
+        max-width: 100% !important;
+        font-size: clamp(.88rem, 3.55vw, 1rem) !important;
+        line-height: 1.31 !important;
+      }
+
+      .quick-info {
+        margin-top: 14px !important;
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 7px !important;
+      }
+
+      .quick-info .info-box:nth-child(3) {
+        grid-column: 1 / -1 !important;
+      }
+
+      .info-box {
+        min-height: auto !important;
+        padding: 10px !important;
+        border-radius: 14px !important;
+        grid-template-columns: auto 1fr !important;
+        gap: 9px !important;
+      }
+
+      .icon {
+        width: 30px !important;
+        height: 30px !important;
+        min-width: 30px !important;
+        border-radius: 11px !important;
+      }
+
+      .icon svg {
+        width: 17px !important;
+        height: 17px !important;
+      }
+
+      .info-box small {
+        font-size: .68rem !important;
+        margin-bottom: 3px !important;
+      }
+
+      .info-box strong,
+      .map-link {
+        font-size: clamp(.78rem, 3.2vw, .9rem) !important;
+        line-height: 1.15 !important;
+      }
+
+      .details {
+        margin-top: 8px !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 7px !important;
+      }
+
+      .mini-card {
+        padding: 10px !important;
+        border-radius: 14px !important;
+        grid-template-columns: auto 1fr !important;
+        gap: 9px !important;
+      }
+
+      .mini-card h3 {
+        font-size: .86rem !important;
+        margin-bottom: 2px !important;
+      }
+
+      .mini-card p {
+        font-size: clamp(.72rem, 3vw, .82rem) !important;
+        line-height: 1.26 !important;
+      }
+
+      .tagline {
+        margin-top: 8px !important;
+        font-size: clamp(.86rem, 4vw, 1.1rem) !important;
+        line-height: 1.12 !important;
+      }
+
+      .countdown-card {
+        padding: 14px !important;
+      }
+
+      .section-title {
+        margin-bottom: 9px !important;
+        font-size: clamp(1.1rem, 6vw, 1.65rem) !important;
+      }
+
+      .countdown {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+      }
+
+      .time-unit {
+        padding: 9px 4px !important;
+        border-radius: 13px !important;
+      }
+
+      .time-unit b {
+        font-size: clamp(1.25rem, 7vw, 1.75rem) !important;
+      }
+
+      .time-unit span {
+        margin-top: 4px !important;
+        font-size: clamp(.48rem, 2.3vw, .62rem) !important;
+        letter-spacing: .1em !important;
+      }
+
+      .rsvp {
+        padding: 15px !important;
+        align-content: start !important;
+      }
+
+      .rsvp .section-title {
+        font-size: clamp(1.85rem, 9vw, 2.5rem) !important;
+        margin-bottom: 9px !important;
+      }
+
+      .rsvp .section-title::after {
+        width: 95px !important;
+        height: 4px !important;
+      }
+
+      .form-grid {
+        gap: 9px !important;
+      }
+
+      .field-label {
+        margin-bottom: 5px !important;
+        font-size: .78rem !important;
+        letter-spacing: .11em !important;
+      }
+
+      input[type="text"] {
+        min-height: 46px !important;
+        padding: 11px 13px !important;
+        border-radius: 12px !important;
+        font-size: 16px !important;
+        /* evita zoom automático en iPhone */
+      }
+
+      .choice-grid,
+      .btn-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 7px !important;
+      }
+
+      .choice span,
+      button {
+        min-height: 46px !important;
+        padding: 9px 8px !important;
+        border-radius: 12px !important;
+        font-size: clamp(.84rem, 3.8vw, .98rem) !important;
+        line-height: 1.05 !important;
+      }
+
+      .primary {
+        min-height: 50px !important;
+        font-size: clamp(.95rem, 4.2vw, 1.08rem) !important;
+      }
+
+      .secondary {
+        min-height: 42px !important;
+      }
+
+      .status {
+        margin-top: 8px !important;
+        padding: 10px !important;
+        border-radius: 13px !important;
+        font-size: .78rem !important;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .shell {
+        padding-left: max(7px, env(safe-area-inset-left)) !important;
+        padding-right: max(7px, env(safe-area-inset-right)) !important;
+      }
+
+      .hero-card {
+        padding: 13px !important;
+      }
+
+      .mi {
+        font-size: clamp(2.55rem, 16vw, 3.75rem) !important;
+      }
+
+      .cumple {
+        font-size: clamp(2.75rem, 17vw, 4.45rem) !important;
+      }
+
+      .subtitle {
+        font-size: .86rem !important;
+      }
+
+      .quick-info {
+        grid-template-columns: 1fr !important;
+      }
+
+      .quick-info .info-box:nth-child(3) {
+        grid-column: auto !important;
+      }
+
+      .countdown-card {
+        padding: 12px !important;
+      }
+
+      .time-unit b {
+        font-size: clamp(1.08rem, 6.2vw, 1.45rem) !important;
+      }
+
+      .choice span,
+      button {
+        font-size: .82rem !important;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .brand {
+        font-size: .68rem !important;
+      }
+
+      .mi {
+        font-size: 2.35rem !important;
+      }
+
+      .cumple {
+        font-size: 2.55rem !important;
+      }
+
+      .subtitle {
+        font-size: .8rem !important;
+      }
+
+      .choice-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .btn-row {
+        grid-template-columns: 1fr !important;
+      }
+
+      .primary,
+      .secondary {
+        grid-column: auto !important;
+      }
+    }
+
+    @supports (-webkit-touch-callout: none) {
+
+      input,
+      button {
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      .card,
+      .topbar {
+        -webkit-backdrop-filter: blur(18px);
+      }
+    }
+  </style>
 </head>
+
 
 <body>
   <main class="shell">
