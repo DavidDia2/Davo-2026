@@ -611,7 +611,8 @@
       filter: brightness(1.06);
     }
 
-    .guest-hidden {
+    .guest-hidden,
+    .dni-hidden {
       display: none !important;
     }
 
@@ -1770,7 +1771,13 @@
                 required />
             </div>
 
-            <div>
+            
+            <div id="dniBlock">
+              <label class="field-label" for="dni">Número de DNI</label>
+              <input id="dni" name="dni" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="Ingresá tu DNI sin puntos" autocomplete="off" />
+            </div>
+
+<div>
               <label class="field-label">¿Vas a asistir?</label>
               <div class="choice-grid">
                 <label class="choice">
@@ -1818,7 +1825,8 @@
       entries: {
         name: 'entry.1030298144',
         attendance: 'entry.807268935',
-        guest: 'entry.574279009'
+        guest: 'entry.574279009',
+        dni: 'entry.1625284961'
       },
       eventStart: '2026-06-27T18:00:00-03:00',
       eventEnd: '2026-06-28T01:00:00-03:00'
@@ -1827,6 +1835,8 @@
     const $ = (selector) => document.querySelector(selector);
     const statusBox = $('#statusBox');
     const guestBlock = $('#guestBlock');
+    const dniBlock = $('#dniBlock');
+    const dniInput = $('#dni');
     const rsvpForm = $('#rsvpForm');
     const submitBtn = $('#submitBtn');
 
@@ -1863,7 +1873,7 @@
       return document.querySelector('input[name="attendance"]:checked')?.value || 'Si';
     }
 
-    function toggleGuestBlock() {
+    function toggleConditionalBlocks() {
       const attendance = getAttendanceValue();
       const guestInputs = document.querySelectorAll('input[name="guest"]');
       const guestSolo = document.querySelector('input[name="guest"][value="Voy solo"]');
@@ -1874,23 +1884,37 @@
           input.disabled = true;
           input.checked = false;
         });
+
+        dniBlock.classList.add('dni-hidden');
+        dniInput.disabled = true;
+        dniInput.required = false;
+        dniInput.value = '';
       } else {
         guestBlock.classList.remove('guest-hidden');
         guestInputs.forEach(input => input.disabled = false);
         if (![...guestInputs].some(input => input.checked) && guestSolo) {
           guestSolo.checked = true;
         }
+
+        dniBlock.classList.remove('dni-hidden');
+        dniInput.disabled = false;
+        dniInput.required = true;
       }
+    }
+
+    // Compatibilidad con llamadas anteriores.
+    function toggleGuestBlock() {
+      toggleConditionalBlocks();
     }
 
     document.querySelectorAll('input[name="attendance"]').forEach((radio) => {
       radio.addEventListener('change', () => {
         statusBox.classList.remove('show');
-        toggleGuestBlock();
+        toggleConditionalBlocks();
       });
     });
 
-    toggleGuestBlock();
+    toggleConditionalBlocks();
 
     function confetti() {
       const colors = ['#f3293e', '#ffffff', '#ff6a78', '#1ee077'];
@@ -1949,6 +1973,7 @@
       addField(CONFIG.entries.name, data.name);
       addField(CONFIG.entries.attendance, data.attendance);
       addField(CONFIG.entries.guest, data.guest);
+      addField(CONFIG.entries.dni, data.dni || '');
 
       document.body.appendChild(form);
 
@@ -1963,14 +1988,31 @@
       }, 1400);
     }
 
+    dniInput?.addEventListener('input', () => {
+      dniInput.value = dniInput.value.replace(/\D/g, '');
+    });
+
     rsvpForm.addEventListener('submit', (event) => {
       event.preventDefault();
 
       const name = $('#name').value.trim();
       const attendance = getAttendanceValue();
+      const dni = (dniInput?.value || '').replace(/\D/g, '');
 
       if (!name) {
         showStatus('Escribí tu nombre antes de enviar. El anonimato está bien para espías, no para cumpleaños.', 'error');
+        return;
+      }
+
+      if (attendance === 'Si' && !dni) {
+        showStatus('Ingresá tu DNI sin puntos ni espacios. Es para poder dejarte registrado en el ingreso.', 'error');
+        dniInput?.focus();
+        return;
+      }
+
+      if (attendance === 'Si' && (dni.length < 6 || dni.length > 12)) {
+        showStatus('Revisá el DNI: cargalo solo con números, sin puntos ni espacios.', 'error');
+        dniInput?.focus();
         return;
       }
 
@@ -1978,7 +2020,8 @@
       const data = {
         name,
         attendance,
-        guest: attendance === 'No' ? 'No aplica' : (guestChecked?.value || 'Voy solo')
+        guest: attendance === 'No' ? 'No aplica' : (guestChecked?.value || 'Voy solo'),
+        dni: attendance === 'No' ? '' : dni
       };
 
       submitBtn.disabled = true;
@@ -1989,7 +2032,7 @@
       if (data.attendance === 'No') {
         showStatus(`<strong>Respuesta enviada.</strong><br>${data.name}, gracias por avisar. Nos vemos en la próxima.`);
       } else {
-        showStatus(`<strong>Respuesta enviada.</strong><br>${data.name}, quedó registrado: <b>${data.attendance}</b> · ${data.guest}.<br><br><strong>Importante:</strong> traé tu <b>DNI</b>. Las bebidas alcohólicas son por cuenta de cada invitado.`);
+        showStatus(`<strong>Respuesta enviada.</strong><br>${data.name}, quedó registrado: <b>${data.attendance}</b> · ${data.guest}.<br>Tu DNI quedó cargado para el ingreso.<br><br><strong>Importante:</strong> traé tu <b>DNI físico</b>. Las bebidas alcohólicas son por cuenta de cada invitado.`);
         confetti();
       }
 
@@ -2001,7 +2044,8 @@
 
     $('#clearBtn').addEventListener('click', () => {
       rsvpForm.reset();
-      toggleGuestBlock();
+      if (dniInput) dniInput.value = '';
+      toggleConditionalBlocks();
       statusBox.classList.remove('show');
       submitBtn.textContent = 'Enviar respuesta →';
       submitBtn.disabled = false;
