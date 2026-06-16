@@ -1540,9 +1540,165 @@
     }
   </style>
 
+
+  <style id="registro-cerrado-capacidad">
+    .capacity-alert {
+      margin: 0 0 14px;
+      padding: clamp(18px, 3vw, 28px);
+      border-radius: 24px;
+      border: 2px solid rgba(243, 41, 62, .75);
+      background:
+        radial-gradient(circle at 20% 15%, rgba(243, 41, 62, .32), transparent 38%),
+        linear-gradient(135deg, rgba(70, 0, 8, .96), rgba(10, 8, 10, .96));
+      box-shadow: 0 28px 80px rgba(0, 0, 0, .52), 0 0 38px rgba(243, 41, 62, .28);
+      text-align: center;
+    }
+
+    .capacity-alert .capacity-kicker {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, .24);
+      background: rgba(0, 0, 0, .35);
+      color: #fff;
+      font-family: "Bebas Neue", Impact, sans-serif;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: .9rem;
+    }
+
+    .capacity-alert h3 {
+      margin: 0;
+      color: #fff;
+      font-family: "Permanent Marker", "Arial Black", sans-serif;
+      font-size: clamp(2rem, 4vw, 4.4rem);
+      line-height: .92;
+      letter-spacing: -.03em;
+      text-shadow: 0 6px 0 rgba(0,0,0,.35), 0 0 28px rgba(243,41,62,.35);
+      transform: rotate(-1deg);
+    }
+
+    .capacity-alert p {
+      margin: 13px auto 0;
+      max-width: 680px;
+      color: rgba(255, 255, 255, .9);
+      font-size: clamp(.98rem, 1.5vw, 1.18rem);
+      line-height: 1.38;
+    }
+
+    .capacity-big-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: grid;
+      place-items: center;
+      padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+      background:
+        radial-gradient(circle at 20% 20%, rgba(243, 41, 62, .28), transparent 32%),
+        radial-gradient(circle at 80% 70%, rgba(30, 224, 119, .16), transparent 30%),
+        rgba(0, 0, 0, .84);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .capacity-modal {
+      width: min(760px, 100%);
+      padding: clamp(24px, 5vw, 46px);
+      border-radius: 30px;
+      border: 2px solid rgba(243, 41, 62, .85);
+      background: linear-gradient(135deg, rgba(80, 0, 10, .98), rgba(6, 6, 7, .98));
+      color: #fff;
+      text-align: center;
+      box-shadow: 0 38px 110px rgba(0, 0, 0, .72), 0 0 60px rgba(243, 41, 62, .28);
+    }
+
+    .capacity-modal .emoji {
+      font-size: clamp(2.8rem, 8vw, 5.2rem);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .capacity-modal h2 {
+      margin: 0;
+      font-family: "Permanent Marker", "Arial Black", sans-serif;
+      font-size: clamp(2.2rem, 8vw, 5rem);
+      line-height: .9;
+      color: #fff;
+      text-transform: uppercase;
+      text-shadow: 0 7px 0 rgba(0,0,0,.35);
+    }
+
+    .capacity-modal p {
+      margin: 18px auto 0;
+      max-width: 620px;
+      color: rgba(255,255,255,.9);
+      font-size: clamp(1rem, 3.8vw, 1.25rem);
+      line-height: 1.42;
+    }
+
+    .capacity-modal button {
+      width: auto;
+      min-width: 210px;
+      margin-top: 22px;
+      padding: 13px 20px;
+      border-radius: 999px;
+      border: 0;
+      background: linear-gradient(135deg, rgba(243, 41, 62, .98), rgba(167, 0, 14, .98));
+      color: #fff;
+      font-family: "Bebas Neue", Impact, sans-serif;
+      font-size: 1.15rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    body.registration-closed #rsvpForm,
+    body.registration-closed .status {
+      display: none !important;
+    }
+
+    body.registration-closed .rsvp {
+      align-content: start !important;
+    }
+
+    @media (max-width: 720px) {
+      .capacity-alert {
+        padding: 18px 14px;
+        border-radius: 20px;
+      }
+
+      .capacity-alert h3 {
+        font-size: clamp(1.85rem, 11vw, 3rem);
+      }
+
+      .capacity-alert p {
+        font-size: .94rem;
+      }
+
+      .capacity-modal {
+        border-radius: 24px;
+      }
+    }
+  </style>
+
 </head>
 
 <body>
+
+  <div class="capacity-big-overlay" id="capacityOverlay" role="dialog" aria-modal="true" aria-labelledby="capacityTitle">
+    <div class="capacity-modal">
+      <div class="emoji" aria-hidden="true">⚠️</div>
+      <h2 id="capacityTitle">Capacidad completa</h2>
+      <p>No se pueden registrar más personas porque ya se superó el límite de capacidad de la juntada.</p>
+      <button type="button" id="closeCapacityOverlay">Entendido</button>
+    </div>
+  </div>
+
+
   <main class="shell">
     <header class="topbar">
       <div class="brand"><span class="dot" aria-hidden="true"></span> Invitación privada</div>
@@ -1775,6 +1931,17 @@
         <section class="card rsvp">
           <h2 class="section-title">Achante donde Davo🎂</h2>
 
+
+          <div class="capacity-alert" role="alert" aria-live="assertive">
+            <div class="capacity-kicker">⚠️ Registro cerrado</div>
+            <h3>Capacidad completa</h3>
+            <p>
+              Ya se superó el límite de capacidad de la juntada.
+              Por ahora <strong>no se pueden registrar más personas</strong>.
+              Gracias por entender.
+            </p>
+          </div>
+
           <form id="rsvpForm" class="form-grid">
             <div>
               <label class="field-label" for="name">Nombre completo</label>
@@ -1842,6 +2009,36 @@
       </aside>
     </section>
   </main>
+
+
+  <script id="registro-cerrado-capacidad-js">
+    const REGISTRO_CERRADO_POR_CAPACIDAD = true;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!REGISTRO_CERRADO_POR_CAPACIDAD) return;
+
+      document.body.classList.add('registration-closed');
+
+      const form = document.getElementById('rsvpForm');
+      const overlay = document.getElementById('capacityOverlay');
+      const closeBtn = document.getElementById('closeCapacityOverlay');
+
+      if (form) {
+        form.querySelectorAll('input, button, select, textarea').forEach((el) => {
+          el.disabled = true;
+        });
+
+        form.addEventListener('submit', (event) => {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+        }, true);
+      }
+
+      closeBtn?.addEventListener('click', () => {
+        if (overlay) overlay.style.display = 'none';
+      });
+    });
+  </script>
 
   <script>
     const CONFIG = {
