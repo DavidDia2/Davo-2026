@@ -1100,6 +1100,7 @@
   <style id="mobile-hard-reset-v3">
     /* MOBILE HARD RESET v3 — iPhone/Android: sin desborde horizontal */
     @media (max-width: 820px) {
+
       html,
       body {
         width: 100% !important;
@@ -1135,10 +1136,7 @@
         min-height: auto !important;
         margin: 0 !important;
         padding:
-          max(8px, env(safe-area-inset-top))
-          max(8px, env(safe-area-inset-right))
-          max(12px, env(safe-area-inset-bottom))
-          max(8px, env(safe-area-inset-left)) !important;
+          max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)) !important;
         display: flex !important;
         flex-direction: column !important;
         gap: 8px !important;
@@ -1199,8 +1197,8 @@
 
       .hero-card::before {
         background:
-          linear-gradient(90deg, rgba(0,0,0,.86) 0%, rgba(0,0,0,.68) 62%, rgba(0,0,0,.80) 100%),
-          linear-gradient(180deg, rgba(0,0,0,.18) 0%, rgba(0,0,0,.44) 52%, rgba(0,0,0,.94) 100%) !important;
+          linear-gradient(90deg, rgba(0, 0, 0, .86) 0%, rgba(0, 0, 0, .68) 62%, rgba(0, 0, 0, .80) 100%),
+          linear-gradient(180deg, rgba(0, 0, 0, .18) 0%, rgba(0, 0, 0, .44) 52%, rgba(0, 0, 0, .94) 100%) !important;
       }
 
       .scene {
@@ -1519,6 +1517,7 @@
     }
 
     @media (hover: none) and (pointer: coarse) {
+
       .choice span:hover,
       button:hover {
         transform: none !important;
@@ -1527,6 +1526,7 @@
     }
 
     @supports (-webkit-touch-callout: none) {
+
       input,
       button {
         -webkit-appearance: none;
@@ -1578,7 +1578,7 @@
       font-size: clamp(2rem, 4vw, 4.4rem);
       line-height: .92;
       letter-spacing: -.03em;
-      text-shadow: 0 6px 0 rgba(0,0,0,.35), 0 0 28px rgba(243,41,62,.35);
+      text-shadow: 0 6px 0 rgba(0, 0, 0, .35), 0 0 28px rgba(243, 41, 62, .35);
       transform: rotate(-1deg);
     }
 
@@ -1629,13 +1629,13 @@
       line-height: .9;
       color: #fff;
       text-transform: uppercase;
-      text-shadow: 0 7px 0 rgba(0,0,0,.35);
+      text-shadow: 0 7px 0 rgba(0, 0, 0, .35);
     }
 
     .capacity-modal p {
       margin: 18px auto 0;
       max-width: 620px;
-      color: rgba(255,255,255,.9);
+      color: rgba(255, 255, 255, .9);
       font-size: clamp(1rem, 3.8vw, 1.25rem);
       line-height: 1.42;
     }
@@ -1689,11 +1689,12 @@
 
 <body>
 
-  <div class="capacity-big-overlay" id="capacityOverlay" role="dialog" aria-modal="true" aria-labelledby="capacityTitle">
+  <div class="capacity-big-overlay" id="capacityOverlay" role="dialog" aria-modal="true"
+    aria-labelledby="capacityTitle">
     <div class="capacity-modal">
       <div class="emoji" aria-hidden="true">⚠️</div>
-      <h2 id="capacityTitle">Capacidad completa</h2>
-      <p>No se pueden registrar más personas porque ya se superó el límite de capacidad de la juntada.</p>
+      <h2 id="capacityTitle">Evento suspendido</h2>
+      <p>No se pueden registrar más personas porque se suspendió la juntada.</p>
       <button type="button" id="closeCapacityOverlay">Entendido</button>
     </div>
   </div>
@@ -1949,13 +1950,14 @@
                 required />
             </div>
 
-            
+
             <div id="dniBlock">
               <label class="field-label" for="dni">Número de DNI</label>
-              <input id="dni" name="dni" type="text" inputmode="numeric" pattern="[0-9]{8,9}" minlength="8" maxlength="9" placeholder="DNI: 8 o 9 números, sin puntos" autocomplete="off" />
+              <input id="dni" name="dni" type="text" inputmode="numeric" pattern="[0-9]{8,9}" minlength="8"
+                maxlength="9" placeholder="DNI: 8 o 9 números, sin puntos" autocomplete="off" />
             </div>
 
-<div>
+            <div>
               <label class="field-label">¿Vas a asistir?</label>
               <div class="choice-grid">
                 <label class="choice">
@@ -1989,12 +1991,14 @@
             <div id="companionBlock" class="companion-hidden">
               <div>
                 <label class="field-label" for="guestName">Nombre completo del acompañante</label>
-                <input id="guestName" name="guestName" type="text" placeholder="Nombre del acompañante" autocomplete="off" />
+                <input id="guestName" name="guestName" type="text" placeholder="Nombre del acompañante"
+                  autocomplete="off" />
               </div>
 
               <div>
                 <label class="field-label" for="guestDni">DNI del acompañante</label>
-                <input id="guestDni" name="guestDni" type="text" inputmode="numeric" pattern="[0-9]{8,9}" minlength="8" maxlength="9" placeholder="DNI: 8 o 9 números, sin puntos" autocomplete="off" />
+                <input id="guestDni" name="guestDni" type="text" inputmode="numeric" pattern="[0-9]{8,9}" minlength="8"
+                  maxlength="9" placeholder="DNI: 8 o 9 números, sin puntos" autocomplete="off" />
               </div>
             </div>
 
